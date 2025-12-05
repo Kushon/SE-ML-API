@@ -6,7 +6,6 @@ from ml import predict
 
 
 def test_predict():
-  
     device = torch.device('cpu')
     
     mock_tokenizer = Mock()
