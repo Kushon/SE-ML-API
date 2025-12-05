@@ -26,4 +26,4 @@ jobs:
     #   run: uv sync --only-group test --no-install-project
     
     - name: Run pytest
-      run: uv run --only-group test --no-install-project pytest
+      run: uv run --only-group test pytest
