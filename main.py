@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 
-from ml import load_model_and_tokenizer
+from ml import load_model_and_tokenizer, predict
 
 
 class Input(BaseModel):
