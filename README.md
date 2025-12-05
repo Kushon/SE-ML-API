@@ -1,20 +1,20 @@
 # Toxicity API
 
-REST API для оценки токсичности текста. Позволяет отправлять комментарии и получать оценку их токсичности (1 токсичен, 0 не токсичен).
-## Локальный запуск
-### Требования
+A REST API for evaluating text toxicity. Allows you to send comments and receive an assessment of their toxicity (1 toxic, 0 non-toxic).
+## Local launch
+### Requirements
 - [uv](https://docs.astral.sh/uv/)
 
-### Установка
+### Installation
 ```
 $ git clone https://github.com/Kushon/SE-ML-API.git
 ```
 
-### Запуск
-В папке проекта:
-```
+### Launch
+In the project folder:
+``
 $ uv run uvicorn main:app
-```
+``
 
-## Документация и простой интерфейс
-При запущеном проекте зайдите на `localhost:8000/docs`
+## Documentation and simple interface
+When the project is running, go to `localhost:8000/docs`
