@@ -1,20 +1,42 @@
-# Toxicity API
+# Tiny Toxic Detector API
 
-A REST API for evaluating text toxicity. Allows you to send comments and receive an assessment of their toxicity (1 toxic, 0 non-toxic).
-## Local launch
-### Requirements
+[![CI](https://github.com/Kushon/SE-ML-API/actions/workflows/ci.yml/badge.svg)](https://github.com/Kushon/SE-ML-API/actions/workflows/ci.yml)
+
+REST API для автоматической модерации пользовательского контента. Принимает текстовые комментарии и возвращает бинарную оценку токсичности (1 — токсично, 0 — допустимо).
+
+## Архитектурное решение
+
+Стандартные решения для детекции токсичности основаны на тяжёлых моделях (BERT, RoBERTa), требующих GPU-инфраструктуры и значительных операционных затрат. Данный сервис использует [AssistantsLab/Tiny-Toxic-Detector](https://huggingface.co/AssistantsLab/Tiny-Toxic-Detector) — компактную специализированную модель, оптимизированную под задачу бинарной классификации токсичности.
+
+**Преимущества для продакшена:**
+- **Низкая стоимость инфраструктуры** — инференс на CPU сопоставим по скорости с GPU, что исключает необходимость в дорогостоящих GPU-инстансах
+- **Предсказуемое потребление ресурсов** — малый объём памяти упрощает capacity planning и горизонтальное масштабирование
+- **Минимальная латентность** — специализированная архитектура `TinyTransformer` (4 энкодер-слоя, embed_dim=64) без накладных расходов универсальных LLM
+
+Компромисс: точность ниже, чем у дообученного BERT. Для сценариев с высокими требованиями к качеству модерации рекомендуется рассмотреть более крупные модели.
+
+## Развёртывание
+
+### Требования
 - [uv](https://docs.astral.sh/uv/)
 
-### Installation
-```
-$ git clone https://github.com/Kushon/SE-ML-API.git
+### Установка
+```bash
+git clone https://github.com/Kushon/SE-ML-API.git
+cd SE-ML-API
 ```
 
-### Launch
-In the project folder:
-``
-$ uv run uvicorn main:app
-``
+### Запуск
+```bash
+uv run uvicorn main:app
+```
 
-## Documentation and simple interface
-When the project is running, go to `localhost:8000/docs`
+## API-документация
+
+После запуска интерактивная документация (Swagger UI) доступна по адресу `http://localhost:8000/docs`
+
+## Тестирование
+
+```bash
+uv run --extra cpu --group test pytest
+```
